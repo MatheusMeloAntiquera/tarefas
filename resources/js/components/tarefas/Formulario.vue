@@ -7,20 +7,35 @@
       <div class="card-body">
         <div class="form-group">
           <label for="titulo">Título:</label>
-          <input type="text" class="form-control" placeholder="Digite o título" v-model="titulo">
-        </div>
-        <div class="form-group">
-          <label for="titulo">Descrição:</label>
           <input
             type="text"
             class="form-control"
+            v-validate="'required'"
+            placeholder="Digite o título"
+            v-model="titulo"
+            name="titulo"
+            data-vv-as="Título"
+          >
+          <div class="valid-feedback">Parece ótimo</div>
+          <div class="invalid-feedback">{{ errors.first('titulo') }}</div>
+        </div>
+        <div class="form-group">
+          <label for="Título">Descrição:</label>
+          <input
+            type="text"
+            name="descricao"
+            class="form-control"
             placeholder="Digite a descrição"
             v-model="descricao"
+            v-validate="'required'"
+            data-vv-as="Descrição"
           >
+          <div class="valid-feedback">Parece ótimo</div>
+          <div class="invalid-feedback">{{ errors.first('descricao') }}</div>
         </div>
         <div class="form-group">
           <label for="status">Status:</label>
-          <select class="form-control" v-model="status">
+          <select class="form-control" v-model="status" name="status" >
             <option :value="1">Aberto</option>
             <option :value="2">Em Andamento</option>
             <option :value="3">Concluído</option>
@@ -70,22 +85,25 @@ export default {
       this.$router.push("/");
     },
     salvar() {
-        console.log(this.metodo)
-      axios({
-        method: this.metodo,
-        url: "/tarefas" + this.complementoUrl,
-        data: {
-          titulo: this.titulo,
-          descricao: this.descricao,
-          status: this.status
+      this.$validator.validate().then(valid => {
+        if (valid) {
+          axios({
+            method: this.metodo,
+            url: "/tarefas" + this.complementoUrl,
+            data: {
+              titulo: this.titulo,
+              descricao: this.descricao,
+              status: this.status
+            }
+          })
+            .then(res => {
+              this.$router.push("/");
+            })
+            .catch(err => {
+              console.error(err.response);
+            });
         }
-      })
-        .then(res => {
-          this.$router.push("/");
-        })
-        .catch(err => {
-          console.error(err.response);
-        });
+      });
     }
   }
 };

@@ -12,11 +12,24 @@
     </div>
     <div class="card-body">
       <b-table striped hover :items="tarefas" :fields="campos">
-        <template slot="status" slot-scope="data">{{ data.item.status | statusTexto }}</template>
+        <template slot="status" slot-scope="data">
+          <h4>
+            <span
+              class="badge badge-pill"
+              :class="badgeCor(data.item.status)"
+            >{{ data.item.status | statusTexto }}</span>
+          </h4>
+        </template>
         <template slot="botoes" slot-scope="data">
-          <button type="button" class="btn btn-danger" @click="excluir( data.item )">Excluir</button>
-          <router-link tag="button" class="btn btn-warning" :to="'/tarefas/formulario/' + data.item.id">
-              Editar
+          <button type="button" class="btn btn-danger" @click="excluir( data.item )">
+            <i class="fa fa-trash-o" aria-hidden="true"></i>
+          </button>
+          <router-link
+            tag="button"
+            class="btn btn-warning"
+            :to="'/tarefas/formulario/' + data.item.id"
+          >
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
           </router-link>
         </template>
       </b-table>
@@ -30,6 +43,18 @@ export default {
     this.carregaTarefas();
   },
   methods: {
+    badgeCor(status) {
+      switch (status) {
+        case 1:
+          return "badge-success";
+        case 2:
+          return "badge-warning";
+        case 3:
+          return "badge-success";
+        case 4:
+          return "badge-danger";
+      }
+    },
     carregaTarefas() {
       axios
         .get("/tarefas")
@@ -74,8 +99,6 @@ export default {
           return "Concluído";
         case 4:
           return "Cancelado";
-        default:
-          return "teste";
       }
     }
   }
@@ -83,4 +106,14 @@ export default {
 </script>
 
 <style>
+#botoes {
+  position: absolute;
+  float: right;
+  right: 16px;
+}
+.buttons-right-top {
+  position: absolute;
+  top: 8px;
+  right: 16px;
+}
 </style>

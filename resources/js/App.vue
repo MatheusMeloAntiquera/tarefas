@@ -4,7 +4,14 @@
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-md-12">
-            <router-view></router-view>
+            <transition
+              enter-active-class="animated fadeInLeft"
+              leave-active-class="animated fadeOutRight"
+              mode="out-in"
+              appear
+            >
+              <router-view></router-view>
+            </transition>
           </div>
         </div>
       </div>

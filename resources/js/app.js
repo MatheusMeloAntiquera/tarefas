@@ -8,11 +8,28 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+
+
 import Routes from '@/js/routes.js'
 
 import BootstrapVue from 'bootstrap-vue'
-
 Vue.use(BootstrapVue)
+
+import VeeValidate, { Validator } from 'vee-validate';
+import ptBR from 'vee-validate/dist/locale/pt_BR';
+
+Vue.use(VeeValidate, {
+    classes: true,
+    classNames: {
+        valid: 'is-valid',
+        invalid: 'is-invalid'
+    },
+
+});
+
+Validator.localize('pt_BR', ptBR);
+
+
 
 import App from '@/js/App.vue';
 
