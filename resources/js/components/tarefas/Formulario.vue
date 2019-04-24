@@ -35,7 +35,7 @@
         </div>
         <div class="form-group">
           <label for="status">Status:</label>
-          <select class="form-control" v-model="status" name="status" >
+          <select class="form-control" v-model="status" name="status">
             <option :value="1">Aberto</option>
             <option :value="2">Em Andamento</option>
             <option :value="3">Concluído</option>
@@ -67,7 +67,7 @@ export default {
           this.complementoUrl = "/" + this.id;
         })
         .catch(err => {
-          console.error(err);
+          this.toast(err.response.data, 'Erro', 'danger')
         });
     }
   },
@@ -78,7 +78,7 @@ export default {
       status: 1,
       metodo: "post",
       complementoUrl: "",
-      mensagem: 'Parece ótimo!'
+      mensagem: "Parece ótimo!"
     };
   },
   methods: {
@@ -104,6 +104,15 @@ export default {
               console.error(err.response);
             });
         }
+      });
+    },
+    toast(mensagem, titulo, variant) {
+      this.$bvToast.toast(`${mensagem}`, {
+        title: `${titulo}`,
+        toaster: 'b-toaster-top-full',
+        variant,
+        solid: true,
+        appendToast: false
       });
     }
   }

@@ -1885,7 +1885,7 @@ __webpack_require__.r(__webpack_exports__);
         _this.metodo = "put";
         _this.complementoUrl = "/" + _this.id;
       })["catch"](function (err) {
-        console.error(err);
+        _this.toast(err.response.data, 'Erro', 'danger');
       });
     }
   },
@@ -1896,7 +1896,7 @@ __webpack_require__.r(__webpack_exports__);
       status: 1,
       metodo: "post",
       complementoUrl: "",
-      mensagem: 'Parece ótimo!'
+      mensagem: "Parece ótimo!"
     };
   },
   methods: {
@@ -1922,6 +1922,15 @@ __webpack_require__.r(__webpack_exports__);
             console.error(err.response);
           });
         }
+      });
+    },
+    toast: function toast(mensagem, titulo, variant) {
+      this.$bvToast.toast("".concat(mensagem), {
+        title: "".concat(titulo),
+        toaster: 'b-toaster-top-full',
+        variant: variant,
+        solid: true,
+        appendToast: false
       });
     }
   }
