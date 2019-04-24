@@ -11,7 +11,7 @@
       </h2>
     </div>
     <div class="card-body">
-      <b-table striped hover :items="tarefas" :fields="campos">
+      <b-table striped bordered :items="tarefas" :fields="campos">
         <template slot="status" slot-scope="data">
           <h4>
             <span

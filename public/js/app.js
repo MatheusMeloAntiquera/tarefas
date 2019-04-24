@@ -77106,7 +77106,7 @@ var render = function() {
         _c("b-table", {
           attrs: {
             striped: "",
-            hover: "",
+            bordered: "",
             items: _vm.tarefas,
             fields: _vm.campos
           },
