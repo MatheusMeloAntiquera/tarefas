@@ -1885,7 +1885,7 @@ __webpack_require__.r(__webpack_exports__);
         _this.metodo = "put";
         _this.complementoUrl = "/" + _this.id;
       })["catch"](function (err) {
-        _this.toast(err.response.data, 'Erro', 'danger');
+        _this.toast(err.response.data, "Erro", "danger");
       });
     }
   },
@@ -1921,13 +1921,15 @@ __webpack_require__.r(__webpack_exports__);
           })["catch"](function (err) {
             console.error(err.response);
           });
+        } else {
+          _this2.toast("Preencha os campos corretamente", "Erro ao gravar", "danger");
         }
       });
     },
     toast: function toast(mensagem, titulo, variant) {
       this.$bvToast.toast("".concat(mensagem), {
         title: "".concat(titulo),
-        toaster: 'b-toaster-top-full',
+        toaster: "b-toaster-top-left",
         variant: variant,
         solid: true,
         appendToast: false

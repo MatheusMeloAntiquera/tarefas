@@ -67,7 +67,7 @@ export default {
           this.complementoUrl = "/" + this.id;
         })
         .catch(err => {
-          this.toast(err.response.data, 'Erro', 'danger')
+          this.toast(err.response.data, "Erro", "danger");
         });
     }
   },
@@ -103,13 +103,19 @@ export default {
             .catch(err => {
               console.error(err.response);
             });
+        } else {
+          this.toast(
+            "Preencha os campos corretamente",
+            "Erro ao gravar",
+            "danger"
+          );
         }
       });
     },
     toast(mensagem, titulo, variant) {
       this.$bvToast.toast(`${mensagem}`, {
         title: `${titulo}`,
-        toaster: 'b-toaster-top-full',
+        toaster: "b-toaster-top-left",
         variant,
         solid: true,
         appendToast: false
