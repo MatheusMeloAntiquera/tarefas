@@ -15,9 +15,10 @@ const router = new VueRouter({
             component: Tarefas,
         },
         {
-            path: '/tarefas/formulario',
+            path: '/tarefas/formulario/:id?',
             name: 'form-tarefas',
-            component: FormTarefas
+            component: FormTarefas,
+            props: true
         }
     ]
 })

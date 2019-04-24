@@ -1830,11 +1830,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["id"],
+  mounted: function mounted() {
+    var _this = this;
+
+    if (this.id != undefined) {
+      axios.get("/tarefas/" + this.id).then(function (res) {
+        var dados = res.data;
+        _this.titulo = dados.titulo;
+        _this.descricao = dados.descricao;
+        _this.status = dados.status;
+        _this.metodo = "put";
+        _this.complementoUrl = "/" + _this.id;
+      })["catch"](function (err) {
+        console.error(err);
+      });
+    }
+  },
   data: function data() {
     return {
       titulo: "",
       descricao: "",
-      status: 1
+      status: 1,
+      metodo: "post",
+      complementoUrl: ""
     };
   },
   methods: {
@@ -1842,16 +1860,21 @@ __webpack_require__.r(__webpack_exports__);
       this.$router.push("/");
     },
     salvar: function salvar() {
-      var _this = this;
+      var _this2 = this;
 
-      axios.post('/tarefas', {
-        titulo: this.titulo,
-        descricao: this.descricao,
-        status: this.status
+      console.log(this.metodo);
+      axios({
+        method: this.metodo,
+        url: "/tarefas" + this.complementoUrl,
+        data: {
+          titulo: this.titulo,
+          descricao: this.descricao,
+          status: this.status
+        }
       }).then(function (res) {
-        _this.$router.push("/");
+        _this2.$router.push("/");
       })["catch"](function (err) {
-        console.error(err);
+        console.error(err.response);
       });
     }
   }
@@ -1888,15 +1911,37 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
-    var _this = this;
+    this.carregaTarefas();
+  },
+  methods: {
+    carregaTarefas: function carregaTarefas() {
+      var _this = this;
 
-    axios.get("/tarefas").then(function (res) {
-      _this.tarefas = res.data;
-    })["catch"](function (err) {
-      console.error(err);
-    });
+      axios.get("/tarefas").then(function (res) {
+        _this.tarefas = res.data;
+      })["catch"](function (err) {
+        console.error(err);
+      });
+    },
+    excluir: function excluir(tarefa) {
+      var _this2 = this;
+
+      axios["delete"]("/tarefas/" + tarefa.id).then(function (res) {
+        console.log(res);
+
+        _this2.carregaTarefas();
+      })["catch"](function (err) {
+        console.error(err);
+      });
+    }
   },
   data: function data() {
     return {
@@ -1912,6 +1957,10 @@ __webpack_require__.r(__webpack_exports__);
         status: {
           label: "Status",
           sortable: true
+        },
+        botoes: {
+          label: "Ações",
+          sortable: false
         }
       },
       tarefas: []
@@ -65567,7 +65616,7 @@ var render = function() {
       _c("div", { staticClass: "content" }, [
         _c("div", { staticClass: "container" }, [
           _c("div", { staticClass: "row justify-content-center" }, [
-            _c("div", { staticClass: "col-md-8" }, [_c("router-view")], 1)
+            _c("div", { staticClass: "col-md-12" }, [_c("router-view")], 1)
           ])
         ])
       ])
@@ -65602,9 +65651,7 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "card-body" }, [
         _c("div", { staticClass: "form-group" }, [
-          _c("label", { attrs: { for: "titulo" } }, [
-            _vm._v("Título: " + _vm._s(_vm.titulo))
-          ]),
+          _c("label", { attrs: { for: "titulo" } }, [_vm._v("Título:")]),
           _vm._v(" "),
           _c("input", {
             directives: [
@@ -65630,9 +65677,7 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "form-group" }, [
-          _c("label", { attrs: { for: "titulo" } }, [
-            _vm._v("Descrição: " + _vm._s(_vm.descricao))
-          ]),
+          _c("label", { attrs: { for: "titulo" } }, [_vm._v("Descrição:")]),
           _vm._v(" "),
           _c("input", {
             directives: [
@@ -65658,9 +65703,7 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "form-group" }, [
-          _c("label", { attrs: { for: "status" } }, [
-            _vm._v("Status: " + _vm._s(_vm.status))
-          ]),
+          _c("label", { attrs: { for: "status" } }, [_vm._v("Status:")]),
           _vm._v(" "),
           _c(
             "select",
@@ -65755,7 +65798,7 @@ var render = function() {
   return _c("div", { staticClass: "card" }, [
     _c("div", { staticClass: "card-header" }, [
       _c("h2", [
-        _vm._v("\n      Latest Posts\n      "),
+        _vm._v("\n      Tarefas\n      "),
         _c(
           "span",
           { staticClass: "buttons-right-top" },
@@ -65793,6 +65836,38 @@ var render = function() {
               key: "status",
               fn: function(data) {
                 return [_vm._v(_vm._s(_vm._f("statusTexto")(data.item.status)))]
+              }
+            },
+            {
+              key: "botoes",
+              fn: function(data) {
+                return [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-danger",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          return _vm.excluir(data.item)
+                        }
+                      }
+                    },
+                    [_vm._v("Excluir")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "btn btn-warning",
+                      attrs: {
+                        tag: "button",
+                        to: "/tarefas/formulario/" + data.item.id
+                      }
+                    },
+                    [_vm._v("\n            Editar\n        ")]
+                  )
+                ]
               }
             }
           ])
@@ -80974,9 +81049,10 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     name: 'tarefas',
     component: _components_tarefas_Tarefas_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   }, {
-    path: '/tarefas/formulario',
+    path: '/tarefas/formulario/:id?',
     name: 'form-tarefas',
-    component: _components_tarefas_Formulario_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
+    component: _components_tarefas_Formulario_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
+    props: true
   }]
 });
 /* harmony default export */ __webpack_exports__["default"] = (router);

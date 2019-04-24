@@ -6,11 +6,11 @@
       </div>
       <div class="card-body">
         <div class="form-group">
-          <label for="titulo">Título: {{ titulo }}</label>
+          <label for="titulo">Título:</label>
           <input type="text" class="form-control" placeholder="Digite o título" v-model="titulo">
         </div>
         <div class="form-group">
-          <label for="titulo">Descrição: {{ descricao }}</label>
+          <label for="titulo">Descrição:</label>
           <input
             type="text"
             class="form-control"
@@ -19,7 +19,7 @@
           >
         </div>
         <div class="form-group">
-          <label for="status">Status: {{ status }}</label>
+          <label for="status">Status:</label>
           <select class="form-control" v-model="status">
             <option :value="1">Aberto</option>
             <option :value="2">Em Andamento</option>
@@ -39,11 +39,30 @@
 <script>
 export default {
   props: ["id"],
+  mounted() {
+    if (this.id != undefined) {
+      axios
+        .get("/tarefas/" + this.id)
+        .then(res => {
+          const dados = res.data;
+          this.titulo = dados.titulo;
+          this.descricao = dados.descricao;
+          this.status = dados.status;
+          this.metodo = "put";
+          this.complementoUrl = "/" + this.id;
+        })
+        .catch(err => {
+          console.error(err);
+        });
+    }
+  },
   data() {
     return {
       titulo: "",
       descricao: "",
-      status: 1
+      status: 1,
+      metodo: "post",
+      complementoUrl: ""
     };
   },
   methods: {
@@ -51,17 +70,21 @@ export default {
       this.$router.push("/");
     },
     salvar() {
-      axios
-        .post('/tarefas', {
-            titulo: this.titulo,
-            descricao: this.descricao,
-            status: this.status
-        })
+        console.log(this.metodo)
+      axios({
+        method: this.metodo,
+        url: "/tarefas" + this.complementoUrl,
+        data: {
+          titulo: this.titulo,
+          descricao: this.descricao,
+          status: this.status
+        }
+      })
         .then(res => {
           this.$router.push("/");
         })
         .catch(err => {
-          console.error(err);
+          console.error(err.response);
         });
     }
   }

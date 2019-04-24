@@ -2,7 +2,7 @@
   <div class="card">
     <div class="card-header">
       <h2>
-        Latest Posts
+        Tarefas
         <span class="buttons-right-top">
           <router-link tag="a" class="btn btn-success" :to="{ name: 'form-tarefas' }">
             <i class="fa fa-plus-circle fa-lg"></i> Nova Tarefa
@@ -13,6 +13,12 @@
     <div class="card-body">
       <b-table striped hover :items="tarefas" :fields="campos">
         <template slot="status" slot-scope="data">{{ data.item.status | statusTexto }}</template>
+        <template slot="botoes" slot-scope="data">
+          <button type="button" class="btn btn-danger" @click="excluir( data.item )">Excluir</button>
+          <router-link tag="button" class="btn btn-warning" :to="'/tarefas/formulario/' + data.item.id">
+              Editar
+          </router-link>
+        </template>
       </b-table>
     </div>
   </div>
@@ -21,21 +27,38 @@
 <script>
 export default {
   mounted() {
-    axios
-      .get("/tarefas")
-      .then(res => {
-        this.tarefas = res.data;
-      })
-      .catch(err => {
-        console.error(err);
-      });
+    this.carregaTarefas();
+  },
+  methods: {
+    carregaTarefas() {
+      axios
+        .get("/tarefas")
+        .then(res => {
+          this.tarefas = res.data;
+        })
+        .catch(err => {
+          console.error(err);
+        });
+    },
+    excluir(tarefa) {
+      axios
+        .delete("/tarefas/" + tarefa.id)
+        .then(res => {
+          console.log(res);
+          this.carregaTarefas();
+        })
+        .catch(err => {
+          console.error(err);
+        });
+    }
   },
   data() {
     return {
       campos: {
         titulo: { label: "Título", sortable: true },
         descricao: { label: "Descrição", sortable: true },
-        status: { label: "Status", sortable: true }
+        status: { label: "Status", sortable: true },
+        botoes: { label: "Ações", sortable: false }
       },
       tarefas: []
     };
@@ -55,7 +78,7 @@ export default {
           return "teste";
       }
     }
-  },
+  }
 };
 </script>
 
