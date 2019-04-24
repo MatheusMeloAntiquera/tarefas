@@ -16,7 +16,7 @@
             name="titulo"
             data-vv-as="Título"
           >
-          <div class="valid-feedback">Parece ótimo</div>
+          <div class="valid-feedback">{{ mensagem }}</div>
           <div class="invalid-feedback">{{ errors.first('titulo') }}</div>
         </div>
         <div class="form-group">
@@ -30,7 +30,7 @@
             v-validate="'required'"
             data-vv-as="Descrição"
           >
-          <div class="valid-feedback">Parece ótimo</div>
+          <div class="valid-feedback">{{ mensagem }}</div>
           <div class="invalid-feedback">{{ errors.first('descricao') }}</div>
         </div>
         <div class="form-group">
@@ -77,7 +77,8 @@ export default {
       descricao: "",
       status: 1,
       metodo: "post",
-      complementoUrl: ""
+      complementoUrl: "",
+      mensagem: 'Parece ótimo!'
     };
   },
   methods: {

@@ -1874,7 +1874,8 @@ __webpack_require__.r(__webpack_exports__);
       descricao: "",
       status: 1,
       metodo: "post",
-      complementoUrl: ""
+      complementoUrl: "",
+      mensagem: 'Parece ótimo!'
     };
   },
   methods: {
@@ -1969,7 +1970,7 @@ __webpack_require__.r(__webpack_exports__);
           return "badge-warning";
 
         case 3:
-          return "badge-success";
+          return "badge-primary";
 
         case 4:
           return "badge-danger";
@@ -76857,7 +76858,7 @@ var render = function() {
           }),
           _vm._v(" "),
           _c("div", { staticClass: "valid-feedback" }, [
-            _vm._v("Parece ótimo")
+            _vm._v(_vm._s(_vm.mensagem))
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "invalid-feedback" }, [
@@ -76902,7 +76903,7 @@ var render = function() {
           }),
           _vm._v(" "),
           _c("div", { staticClass: "valid-feedback" }, [
-            _vm._v("Parece ótimo")
+            _vm._v(_vm._s(_vm.mensagem))
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "invalid-feedback" }, [

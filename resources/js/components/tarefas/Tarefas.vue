@@ -50,7 +50,7 @@ export default {
         case 2:
           return "badge-warning";
         case 3:
-          return "badge-success";
+          return "badge-primary";
         case 4:
           return "badge-danger";
       }

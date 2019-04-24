@@ -17,7 +17,8 @@ class TarefasController extends Controller
      */
     public function index()
     {
-        $tarefas = Tarefa::all();
+        $tarefas = Tarefa::orderBy('id', 'DESC')->get();
+
         return response()->json($tarefas, 200);
 
     }
