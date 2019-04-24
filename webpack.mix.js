@@ -1,9 +1,5 @@
 const mix = require('laravel-mix');
 
-node: {
-    fs: 'empty'
-}
-
 mix.webpackConfig({
     resolve: {
         extensions: ['.js', '.vue'],

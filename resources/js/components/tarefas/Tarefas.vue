@@ -69,7 +69,6 @@ export default {
       axios
         .delete("/tarefas/" + tarefa.id)
         .then(res => {
-          console.log(res);
           this.carregaTarefas();
         })
         .catch(err => {
@@ -106,11 +105,6 @@ export default {
 </script>
 
 <style>
-#botoes {
-  position: absolute;
-  float: right;
-  right: 16px;
-}
 .buttons-right-top {
   position: absolute;
   top: 8px;

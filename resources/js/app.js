@@ -8,8 +8,6 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
-
-
 import Routes from '@/js/routes.js'
 
 import BootstrapVue from 'bootstrap-vue'
@@ -19,6 +17,7 @@ import VeeValidate, { Validator } from 'vee-validate';
 import ptBR from 'vee-validate/dist/locale/pt_BR';
 
 Vue.use(VeeValidate, {
+    fieldsBagName: 'formFields',
     classes: true,
     classNames: {
         valid: 'is-valid',
@@ -28,8 +27,6 @@ Vue.use(VeeValidate, {
 });
 
 Validator.localize('pt_BR', ptBR);
-
-
 
 import App from '@/js/App.vue';
 

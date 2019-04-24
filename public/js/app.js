@@ -2010,8 +2010,6 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       axios["delete"]("/tarefas/" + tarefa.id).then(function (res) {
-        console.log(res);
-
         _this2.carregaTarefas();
       })["catch"](function (err) {
         console.error(err);
@@ -24771,7 +24769,7 @@ exports.hasPointerEventSupport = hasPointerEventSupport;
 
 var getEnv = function getEnv(key) {
   var fallback = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-  var env = typeof process !== 'undefined' && process ? Object({"MIX_PUSHER_APP_CLUSTER":"mt1","MIX_PUSHER_APP_KEY":"","NODE_ENV":"development"}) || false : {};
+  var env = typeof process !== 'undefined' && process ? Object({"MIX_APP_URL":"http://localhost:8000","MIX_PUSHER_APP_CLUSTER":"mt1","MIX_PUSHER_APP_KEY":"","NODE_ENV":"development"}) || false : {};
 
   if (!key) {
     /* istanbul ignore next */
@@ -33591,7 +33589,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n#botoes {\n  position: absolute;\n  float: right;\n  right: 16px;\n}\n.buttons-right-top {\n  position: absolute;\n  top: 8px;\n  right: 16px;\n}\n", ""]);
+exports.push([module.i, "\n.buttons-right-top {\n  position: absolute;\n  top: 8px;\n  right: 16px;\n}\n", ""]);
 
 // exports
 
@@ -92114,6 +92112,7 @@ Vue.use(bootstrap_vue__WEBPACK_IMPORTED_MODULE_1___default.a);
 
 
 Vue.use(vee_validate__WEBPACK_IMPORTED_MODULE_2__["default"], {
+  fieldsBagName: 'formFields',
   classes: true,
   classNames: {
     valid: 'is-valid',
@@ -92161,7 +92160,8 @@ try {
 
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-window.axios.defaults.baseURL = 'http://localhost:8000/api';
+window.axios.defaults.baseURL = "http://localhost:8000" + '/api';
+'';
 /**
  * Next we will register the CSRF Token as a common header with Axios so that
  * all outgoing HTTP requests automatically have it attached. This is just
