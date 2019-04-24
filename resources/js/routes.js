@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 
 import Tarefas from './components/tarefas/Tarefas.vue'
 import FormTarefas from './components/tarefas/Formulario.vue'
+import PaginaNaoEncontrada from './components/PaginaNaoEncontrada.vue'
 
 Vue.use(VueRouter)
 
@@ -19,6 +20,10 @@ const router = new VueRouter({
             name: 'form-tarefas',
             component: FormTarefas,
             props: true
+        },
+        {
+            path: "*",
+            component: PaginaNaoEncontrada
         }
     ]
 })
