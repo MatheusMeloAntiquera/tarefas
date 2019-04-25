@@ -1,6 +1,6 @@
 # Tarefas - Avaliação PHP - Finch
 
-Projeto desenvolvido em para teste 
+Projeto desenvolvido para avaliação 
 
 ## Tecnólogias utilizadas
 
