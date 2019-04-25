@@ -1,6 +1,13 @@
 # Tarefas - Avaliação PHP - Finch
 
-Projeto desenvolvido para teste 
+Projeto desenvolvido em para teste 
+
+## Tecnólogias utilizadas
+
+- Laravel (API)
+- Vuejs (Frontend)
+- Bootstrap/Bootstrap-vue
+
 
 ## Como usar
 
