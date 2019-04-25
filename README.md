@@ -17,6 +17,7 @@ DB_USERNAME=root
 DB_PASSWORD=
 ```
 - Abra o terminal e entre na pasta do projeto, depois rode o comando: **php artisan migrate**. Caso ocorra algum erro verifique as suas configurações de banco estão corretas no **.env**.
+- Rodar o comando **npm i** 
 - Agora use o comando **php artisan serve** para startar a aplicação. Por padrão aplicação roda em *localhost:8000*, porém pode ocorrer exceções, caso isso ocorra altere os campos *APP_URL* e o *APP_PORT* no arquivo **.env**, para o endereço e porta corretos. 
 - Com aplicação rodando basta acessar "http://localhost:8000"
 
